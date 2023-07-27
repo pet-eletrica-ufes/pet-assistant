@@ -1,7 +1,7 @@
 
 # Voice-Controlled Personal Assistant
 
-The projects implements this [blog post](https://www.freecodecamp.org/news/python-project-how-to-build-your-own-jarvis-using-python/). It is a voice-controlled personal assistent as Tony Stark's Jarvis. The agent is capable for performing several actions such as: 
+The projects implements this [blog post](https://www.freecodecamp.org/news/python-project-how-to-build-your-own-jarvis-using-python/). It is a voice-controlled personal assistent as Tony Stark's Jarvis, used as a prototype for [@pet-eletrica-ufes](https://github.com/pet-eletrica-ufes) AI. The agent is capable for performing several actions such as: 
 
 * open notepad++
 * open command prompt
