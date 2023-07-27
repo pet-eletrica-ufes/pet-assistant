@@ -14,6 +14,7 @@ The projects implements this [blog post](https://www.freecodecamp.org/news/pytho
 * send emails
 * tell jokes
 * give free advices
+* interact in real time with hologram
 
 # How to Run
 
