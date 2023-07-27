@@ -22,8 +22,8 @@ if speak():
                 pygame.quit()
                 sys.exit()
 
-        # Preencha o fundo da janela com uma cor ou imagem, se desejar
-        window.fill((255, 255, 255))  # Cor branca como exemplo
+        # Preenche o fundo da janela com uma cor
+        window.fill(Configs.cor)  
 
         # Desenhe a imagem da assistente na janela
         window.blit(Configs.assistant_image, (200, 200))  # Posição (0, 0) como exemplo
