@@ -1,0 +1,7 @@
+wheel
+pyttsx3
+SpeechRecognition
+pywhatkit
+wikipedia
+requests
+python-decouple
