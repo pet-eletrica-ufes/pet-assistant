@@ -31,13 +31,13 @@ def greet_user(engine):
 
     hour = datetime.now().hour
     if (hour >= 6) and (hour < 12):
-        speak(engine, f"Good Morning {USERNAME}")
+        speak(engine, f"Bom dia {USERNAME}")
     elif (hour >= 12) and (hour < 16):
-        speak(engine, f"Good afternoon {USERNAME}")
+        speak(engine, f"Boa tarde {USERNAME}")
     elif (hour >= 16) and (hour < 19):
-        speak(engine, f"Good Evening {USERNAME}")
+        speak(engine, f"Boa noitinha {USERNAME}")
 
-    speak(engine, f"I am {BOTNAME}. How may I assist you?")
+    speak(engine, f"Eu sou {BOTNAME}. Como posso te ajudar?")
 
 
 def take_user_input(engine):
@@ -45,25 +45,25 @@ def take_user_input(engine):
 
     r = sr.Recognizer()
     with sr.Microphone() as source:
-        print('Listening....')
+        print('Escutando....')
         r.pause_threshold = 1
         audio = r.listen(source)
 
     try:
-        print('Recognizing...')
-        query = r.recognize_google(audio, language='en-in')
-        if not 'exit' in query or 'stop' in query:
+        print('Reconhecendo...')
+        query = r.recognize_google(audio, language='pt-BR')
+        if not 'sair' in query or 'pare' in query:
             speak(engine, choice(opening_text))
         else:
             hour = datetime.now().hour
             if hour >= 21 and hour < 6:
-                speak(engine, "Good night sir, take care!")
+                speak(engine, "Boa noite, cuide-se!")
             else:
-                speak(engine, 'Have a good day sir!')
+                speak(engine, 'Tenha um bom dia!')
             exit()
     except Exception:
         speak(engine,
-              'Sorry, I could not understand. Could you please say that again?')
+              'Desculpe, não consegui entender. Você poderia repetir?')
         query = 'None'
     return query
 
@@ -80,103 +80,107 @@ def main():
     # Set Voice (Female)
     # The getProperty method returns a list of voices available in the system.
     voices = engine.getProperty('voices')
-    engine.setProperty('voice', voices[1].id)
+    '''engine.setProperty('voice', voices[1].id)'''
+    for voice in voices:
+        if "brazil" in voice.name.lower():
+            engine.setProperty('voice', voice.id)
+            break
 
     greet_user(engine)
 
     while True:
         query = take_user_input(engine).lower()
 
-        if 'open notepad' in query:
+        if 'abrir bloco de notas' in query:
             open_notepad()
 
-        elif 'open command prompt' in query or 'open cmd' in query:
+        elif 'abrir prompt de comando' in query or 'abrir cmd' in query:
             open_cmd()
 
-        elif 'open camera' in query:
+        elif 'abrir camera' in query:
             open_camera()
 
-        elif 'open calculator' in query:
+        elif 'abrir calculadora' in query:
             open_calculator()
 
-        elif 'ip address' in query:
+        elif 'endereço de ip' in query:
             ip_address = find_my_ip()
             speak(engine,
-                  f'Your IP Address is {ip_address}.\n For your convenience, I am printing it on the screen sir.')
-            print(f'Your IP Address is {ip_address}')
+                  f'Seu endereço de IP é: {ip_address}.\n TE EME JOTA')
+            print(f'Seu endereço de IP é: {ip_address}')
 
         elif 'wikipedia' in query:
-            speak(engine, 'What do you want to search on Wikipedia, sir?')
+            speak(engine, 'O quê você quer pesquisar na Wikipedia?')
             search_query = take_user_input(engine).lower()
             results = search_on_wikipedia(search_query)
-            speak(engine, f"According to Wikipedia, {results}")
-            speak(engine, "For your convenience, I am printing it on the screen sir.")
+            speak(engine, f"De acordo com a Wikipedia, {results}")
+            speak(engine, "Estou printando na tela.")
             print(results)
 
         elif 'youtube' in query:
-            speak(engine, 'What do you want to play on Youtube, sir?')
+            speak(engine, 'O quê você quer ver no YouTube?')
             video = take_user_input(engine).lower()
             play_on_youtube(video)
 
-        elif 'search on google' in query:
-            speak(engine, 'What do you want to search on Google, sir?')
+        elif 'Pesquisar no Google' in query:
+            speak(engine, 'O que vocÊ quer pesquisar no Google?')
             query = take_user_input(engine).lower()
             search_on_google(query)
 
-        elif "send whatsapp message" in query:
+        elif "Enviar mensagem no Whatsapp" in query:
             speak(engine,
-                  'On what number should I send the message sir? Please enter in the console: ')
-            number = input("Enter the number: ")
-            speak(engine, "What is the message sir?")
+                  'Por favor, escreva o número para qual devo enviar a mensagem.')
+            number = input("Entre com o número: ")
+            speak(engine, "Qual a mensagem que deseja enviar?")
             message = take_user_input(engine).lower()
             send_whatsapp_message(number, message)
-            speak(engine, "I've sent the message sir.")
+            speak(engine, "Mensagem enviada.")
 
-        elif "send an email" in query:
+        elif "Enviar email" in query:
             speak(
-                engine, "On what email address do I send sir? Please enter in the console: ")
-            receiver_address = input("Enter email address: ")
-            speak(engine, "What should be the subject sir?")
+                engine, "Entre com o email para o qual deseja enviar.")
+            receiver_address = input("Entre ocm o endereço de email: ")
+            speak(engine, "Qual deve ser o assunto?")
             subject = take_user_input(engine).capitalize()
-            speak(engine, "What is the message sir?")
+            speak(engine, "Qual é a mensagem?")
             message = take_user_input(engine).capitalize()
             if send_email(receiver_address, subject, message):
-                speak(engine, "I've sent the email sir.")
+                speak(engine, "Email enviado.")
             else:
                 speak(engine,
-                      "Something went wrong while I was sending the mail. Please check the error logs sir.")
+                      "Algo deu errado enquanto enviava o email,por favor, cheque o log de erro.")
 
-        elif 'joke' in query:
-            speak(engine, f"Hope you like this one sir")
+        elif 'Piadoca' in query:
+            speak(engine, f"Espero que goste dessa.")
             joke = get_random_joke()
             speak(engine, joke)
-            speak(engine, "For your convenience, I am printing it on the screen sir.")
+            speak(engine, "Estou printando na tela.")
             pprint(joke)
 
-        elif "advice" in query:
-            speak(engine, f"Here's an advice for you, sir")
+        elif "Conselho" in query:
+            speak(engine, f"Aqui vai um conselho para você.")
             advice = get_random_advice()
             speak(engine, advice)
-            speak(engine, "For your convenience, I am printing it on the screen sir.")
+            speak(engine, "Estou printando na tela.")
             pprint(advice)
 
-        elif 'news' in query:
-            speak(engine, f"I'm reading out the latest news headlines, sir")
+        elif 'Notícias' in query:
+            speak(engine, f"Estou lendo as últimas notícias.")
             speak(engine, get_latest_news())
-            speak(engine, "For your convenience, I am printing it on the screen sir.")
+            speak(engine, "Estou printando na tela.")
             print(*get_latest_news(), sep='\n')
 
-        elif 'weather' in query:
+        elif 'Tempo' in query:
             ip_address = find_my_ip()
             city = requests.get(f"https://ipapi.co/{ip_address}/city/").text
-            speak(engine, f"Getting weather report for your city {city}")
+            speak(engine, f"Procurando o relatório do tempo de {city}.")
             weather, temperature, feels_like = get_weather_report(city)
             speak(engine,
-                  f"The current temperature is {temperature}, but it feels like {feels_like}")
-            speak(engine, f"Also, the weather report talks about {weather}")
-            speak(engine, "For your convenience, I am printing it on the screen sir.")
+                  f"A temperatura atual é {temperature}, com a sensação térmica de {feels_like}")
+            speak(engine, f"Também, é falado no relatório que {weather}")
+            speak(engine, "Estou printando na tela.")
             print(
-                f"Description: {weather}\nTemperature: {temperature}\nFeels like: {feels_like}")
+                f"Descrição: {weather}\n Temperatura: {temperature}\n Sensação: {feels_like}")
 
 
 if __name__ == '__main__':
