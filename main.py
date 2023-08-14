@@ -13,9 +13,9 @@ BOTNAME = config('BOTNAME')
 
 
 opening_text = [
-    "Cool, I'm on it sir.",
-    "Okay sir, I'm working on it.",
-    "Just a second sir.",
+    "Ok, estou no processo.",
+    "Beleza, já iniciei.",
+    "Só um segundo.",
 ]
 
 
