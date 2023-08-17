@@ -1,4 +1,6 @@
 import requests
+import requests
+# from googletrans import Translator
 import wikipedia
 import pywhatkit as kit
 from email.message import EmailMessage
@@ -78,6 +80,8 @@ def get_random_joke():
     }
     res = requests.get("https://icanhazdadjoke.com/", headers=headers).json()
     return res["joke"]
+
+
 
 
 def get_random_advice():
