@@ -37,7 +37,7 @@ def send_whatsapp_message(number, message):
     kit.sendwhatmsg_instantly(f"+55{number}", message)
 
 
-def send_email(receiver_address, subject, message):
+def send_email(receiver_address, subject, message): #alterar para leitura de arquivos (modelo de email, lista de pessoas, etc.)
     try:
         email = EmailMessage()
         email['To'] = receiver_address
@@ -74,7 +74,7 @@ def get_weather_report(city):
     return weather, f"{temperature}℃", f"{feels_like}℃"
 
 
-def get_random_joke():
+def get_random_joke(): #fazer um ambiente de commits de piadas próprias para alimentar a Faraday 
     headers = {
         'Accept': 'application/json'
     }
@@ -84,6 +84,6 @@ def get_random_joke():
 
 
 
-def get_random_advice():
+def get_random_advice(): #mesma ideia da função de piadas
     res = requests.get("https://api.adviceslip.com/advice").json()
     return res['slip']['advice']
