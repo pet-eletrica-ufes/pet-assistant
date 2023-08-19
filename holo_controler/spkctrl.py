@@ -1,4 +1,4 @@
-from main import speak
+'''from main import speak
 from configs import Configs
 import serial
 import pygame
@@ -29,7 +29,7 @@ if speak():
         window.blit(Configs.assistant_image, (200, 200))  # Posição (0, 0) como exemplo
 
         # Atualize a tela
-        pygame.display.flip()
+        pygame.display.flip()'''
 
 
 

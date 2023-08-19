@@ -7,16 +7,24 @@ from functions.online_ops import find_my_ip, get_latest_news, get_random_advice,
 from functions.os_ops import open_calculator, open_camera, open_cmd, open_notepad
 from pprint import pprint
 from decouple import config
+from playsound import playsound
 
 USERNAME = config('USER')
 BOTNAME = config('BOTNAME')
 
+dibas = "data/tdb.mp3"
 
 opening_text = [
     "Ok, estou no processo.",
     "Beleza, já iniciei.",
     "Só um segundo.",
 ]
+
+listening_text = [
+    "Estou escutando.",
+    "O que deseja?",
+    "Eu!",
+    ]
 
 
 
@@ -33,9 +41,9 @@ def greet_user(engine):
     hour = datetime.now().hour
     if (hour >= 6) and (hour < 12):
         speak(engine, f"Bom dia {USERNAME}")
-    elif (hour >= 12) and (hour < 16):
+    elif (hour >= 12) and (hour < 18):
         speak(engine, f"Boa tarde {USERNAME}")
-    elif (hour >= 16) and (hour < 19):
+    elif (hour >= 18):
         speak(engine, f"Boa noitinha {USERNAME}")
 
     speak(engine, f"Eu sou {BOTNAME}. Como posso te ajudar?")
@@ -63,20 +71,37 @@ def take_user_input(engine):
                 speak(engine, 'Tenha um bom dia!')
             exit()
     except Exception:
-        
-        '''speak(engine,
-              'Desculpe, não consegui entender. Você poderia repetir?')'''
+        speak(engine,
+              'Desculpe, não consegui entender. Você poderia repetir?')
+        query = 'None' 
+    return query
+
+def listen(engine):
+    """Takes user input, recognizes it using Speech Recognition module and converts it into text"""
+
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+        r.pause_threshold = 1
+        audio = r.listen(source)
+
+    try:
+        query = r.recognize_google(audio, language='pt-BR')
+        if not 'sair' in query or 'pare' in query:
+            pass
+        else:
+            hour = datetime.now().hour
+            if hour >= 18 and hour < 6:
+                speak(engine, "Boa noite, cuide-se!")
+            else:
+                speak(engine, 'Tenha um bom dia!')
+            exit()
+            
+    except Exception:
         query = 'None' 
     return query
 
 
 def main():
-
-    listening_text = [
-    "Estou escutando.",
-    "O que deseja?",
-    "Eu!",
-    ]
 
     engine = pyttsx3.init('sapi5')
 
@@ -98,12 +123,14 @@ def main():
     greet_user(engine)
 
     while True:
-        query = take_user_input(engine).lower()
+        query = listen(engine).lower()
 
-        if 'faraday' in query:
+        if 'faraday' in query or 'faradai' in query or 'faradei' in query:
             speak(engine, choice(listening_text))
 
             while True:
+                
+                query = take_user_input(engine).lower()
 
                 if 'abrir bloco de notas' in query:
                     open_notepad()
@@ -112,10 +139,19 @@ def main():
                 elif 'abrir prompt de comando' in query or 'abrir cmd' in query:
                     open_cmd()
                     break
-
+                
+                elif 'se apresente' in query or 'apresente-se' in query:
+                    speak(engine,
+                        f'Olá, eu sou a Faraday, a assistente virtual do PET Elétrica Ufes. Caso deseje minha ajuda basta me chamar que eu atenderei. Se quiser uma lista dos possíveis comandos que eu executo, basta dizer Comandos que explicarei.')
+                    break
+                
                 elif 'abrir camera' in query:
                     open_camera()
                     break
+                
+                # elif 'tamo junto' in query or 'ta de boas' in query or 'tade boas':
+                #    playsound(dibas)
+                #    break
 
                 elif 'abrir calculadora' in query:
                     open_calculator()
@@ -209,6 +245,10 @@ def main():
                     print(
                         f"Descrição: {weather}\n Temperatura: {temperature}\n Sensação: {feels_like}")
                     break
+                
+                else:
+                    speak(engine,
+              'Desculpe, não consegui entender. Você poderia repetir?')
 
 
 if __name__ == '__main__':

@@ -89,6 +89,8 @@ def get_random_advice(): #mesma ideia da função de piadas
     return res['slip']['advice']
 
 
+    
+
 # Bom dia Faraday - revisão do clima, horário, emails não lidos e cumprimentos. Possível reconhecimento de pessoas por voz (Vik - Librosa)
 # https://subscription.packtpub.com/book/data/9781787125193/9/ch09lvl1sec61/identifying-speakers-with-voice-recognition
 # Faraday, se apresente - 'Olá, eu sou a Faraday, a assistente virtual do PET...'
