@@ -82,12 +82,9 @@ def get_random_joke(): #fazer um ambiente de commits de piadas próprias para al
     return res["joke"]
 
 
-
-
 def get_random_advice(): #mesma ideia da função de piadas
     res = requests.get("https://api.adviceslip.com/advice").json()
     return res['slip']['advice']
-
 
     
 
@@ -104,5 +101,5 @@ def get_random_advice(): #mesma ideia da função de piadas
 
 # Integração com holograma será adaptada ao Hardware disponível (ventoinha ou box)
 
-
+# Abrir sites diretos por atalhos salvos no servidor
 
