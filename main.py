@@ -109,7 +109,7 @@ def main():
     engine.setProperty('rate', 190)
 
     # Set Volume
-    engine.setProperty('volume', 1.0)
+    engine.setProperty('volume', 1.5)
 
     # Set Voice (Female)
     # The getProperty method returns a list of voices available in the system.
@@ -253,3 +253,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+# variação de volume 
