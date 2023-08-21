@@ -91,6 +91,8 @@ def get_random_advice(): #mesma ideia da função de piadas
 # Bom dia Faraday - revisão do clima, horário, emails não lidos e cumprimentos. Possível reconhecimento de pessoas por voz (Vik - Librosa)
 # https://subscription.packtpub.com/book/data/9781787125193/9/ch09lvl1sec61/identifying-speakers-with-voice-recognition
 # Faraday, se apresente - 'Olá, eu sou a Faraday, a assistente virtual do PET...'
+# Interação com a sala inteligente, 'tour' pelas funcionalidades
+
 # LED responsivo 
 # Escrever em um txt as coisas que pedirem para ela. Ex "faraday anota isso" "ok estou esctando" "bla bla bla"
 
