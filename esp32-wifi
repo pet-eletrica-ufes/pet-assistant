@@ -1,8 +1,8 @@
 
 #include <WiFi.h>
  
-const char* ssid = "PET ELÉTRICA";
-const char* password = "#Lenz160@";
+const char* ssid = "ssid";
+const char* password = "password";
 int LED = 33;
 WiFiServer server(80);
  
