@@ -7,10 +7,10 @@ from functions.online_ops import find_my_ip, get_latest_news, get_random_advice,
 from functions.os_ops import open_calculator, open_camera, open_cmd, open_notepad
 from pprint import pprint
 from decouple import config
-from playsound import playsound
 
 USERNAME = config('USER')
 BOTNAME = config('BOTNAME')
+
 
 dibas = "data/tdb.mp3"
 
@@ -86,6 +86,7 @@ def listen(engine):
 
     try:
         query = r.recognize_google(audio, language='pt-BR')
+        print(query)
         if not 'sair' in query or 'pare' in query:
             pass
         else:
@@ -103,13 +104,19 @@ def listen(engine):
 
 def main():
 
+
+    esp_ip = "192.168.1.103"
+    
+
+    volume = 1.0
+
     engine = pyttsx3.init('sapi5')
 
     # Set Rate
     engine.setProperty('rate', 190)
 
     # Set Volume
-    engine.setProperty('volume', 1.5)
+    engine.setProperty('volume', volume)
 
     # Set Voice (Female)
     # The getProperty method returns a list of voices available in the system.
@@ -131,6 +138,9 @@ def main():
             while True:
                 
                 query = take_user_input(engine).lower()
+                '''f = open("stt.txt", "w")
+                f.write(f'{query}')'''
+
 
                 if 'abrir bloco de notas' in query:
                     open_notepad()
@@ -139,6 +149,19 @@ def main():
                 elif 'abrir prompt de comando' in query or 'abrir cmd' in query:
                     open_cmd()
                     break
+
+                # elif 'escreva' in query:
+                #    if'ponto' in query:
+                #      break
+                #   f.write(f'{query}')
+
+                elif 'volume' in query:
+                    if 'aumentar' in query:
+                        volume += 0.5
+                        break
+                    elif 'diminuir' in query or 'abaixar' in query:
+                        volume -= 0.5
+                        break
                 
                 elif 'se apresente' in query or 'apresente-se' in query:
                     speak(engine,
@@ -152,6 +175,26 @@ def main():
                 # elif 'tamo junto' in query or 'ta de boas' in query or 'tade boas':
                 #    playsound(dibas)
                 #    break
+
+                elif 'acender' in query:
+                    url_on = f"http://{esp_ip}/H"
+                    response_on = requests.get(url_on)
+                    if response_on.status_code == 200:
+                        print("LED aceso!")
+                    else:
+                        print("Falha ao acender o LED.")
+                    break
+                
+
+                elif 'apagar' in query:
+                    url_on = f"http://{esp_ip}/L"
+                    response_on = requests.get(url_on)
+
+                    if response_on.status_code == 200:
+                        print("LED apagado!")
+                    else:
+                        print("Falha ao apagar o LED.")
+                    break
 
                 elif 'abrir calculadora' in query:
                     open_calculator()
@@ -250,6 +293,7 @@ def main():
                     speak(engine,
               'Desculpe, não consegui entender. Você poderia repetir?')
 
+    f.close()
 
 if __name__ == '__main__':
     main()
