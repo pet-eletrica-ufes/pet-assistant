@@ -15,6 +15,7 @@ The projects implements this [blog post](https://www.freecodecamp.org/news/pytho
 * tell jokes
 * give free advices
 * interact in real time with hologram
+* interact in real time with automation system (LED, doors, lights, etc)
 
 # How to Run
 
