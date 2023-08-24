@@ -62,10 +62,11 @@ void loop() {
             digitalWrite(MED, HIGH);
             delay(1000);
             digitalWrite(MED, LOW);
-          }
+            char c = client.read();
+            Serial.write(c);          
+}
 
-
-        }
+ }
          if (currentLine.endsWith("GET /A")) {
           digitalWrite(MED, HIGH);
         }
