@@ -1,14 +1,15 @@
-
 #include <WiFi.h>
  
-const char* ssid = "ssid";
-const char* password = "password";
+const char* ssid = "*****";
+const char* password = "************";
 int LED = 33;
+int MED =14;
 WiFiServer server(80);
  
 void setup() {
   Serial.begin(115200);
   pinMode(LED, OUTPUT);
+  pinMode(MED, OUTPUT);
  
   Serial.println();
   Serial.print("Conectando-se a ");
@@ -43,6 +44,7 @@ void loop() {
             client.println("Content-type:text/html");
             client.println();
             client.print("Clique <a href=\"/H\">aqui</a> para acender.<br>");
+            client.print("Clique <a href=\"/A\">aqui</a> para acender 2.<br>");
             client.print("Clique <a href=\"/L\">aqui</a> para desligar.<br>");
             client.println();
             break;
@@ -53,10 +55,23 @@ void loop() {
           currentLine += c;
         }
         if (currentLine.endsWith("GET /H")) {
-          digitalWrite(LED, HIGH);
+          while ((currentLine.endsWith("GET /H"))){
+            digitalWrite(LED, HIGH);
+            delay(1000);
+            digitalWrite(LED, LOW);
+            digitalWrite(MED, HIGH);
+            delay(1000);
+            digitalWrite(MED, LOW);
+          }
+
+
+        }
+         if (currentLine.endsWith("GET /A")) {
+          digitalWrite(MED, HIGH);
         }
         if (currentLine.endsWith("GET /L")) {
           digitalWrite(LED, LOW);
+          digitalWrite(MED, LOW);
         }
       }
     }
