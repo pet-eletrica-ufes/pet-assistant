@@ -62,6 +62,8 @@ void loop() {
             digitalWrite(MED, HIGH);
             delay(1000);
             digitalWrite(MED, LOW);
+            char c = client.read();
+            Serial.write(c);
           }
 
 
