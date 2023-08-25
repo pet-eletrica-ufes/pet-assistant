@@ -5,7 +5,6 @@ from random import choice
 import requests
 from functions.online_ops import find_my_ip, get_latest_news, get_random_advice, get_random_joke, get_weather_report, play_on_youtube, search_on_google, search_on_wikipedia, send_email, send_whatsapp_message
 from functions.os_ops import open_calculator, open_camera, open_cmd, open_notepad
-from pprint import pprint
 from decouple import config
 
 USERNAME = config('USER')
@@ -258,7 +257,6 @@ def main():
                     joke = get_random_joke()
                     speak(engine, joke)
                     speak(engine, "Estou printando na tela.")
-                    pprint(joke)
                     break
 
                 elif "conselho" in query:
@@ -266,7 +264,6 @@ def main():
                     advice = get_random_advice()
                     speak(engine, advice)
                     speak(engine, "Estou printando na tela.")
-                    pprint(advice)
                     break
 
                 elif 'notícias' in query:
