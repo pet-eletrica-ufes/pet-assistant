@@ -1,7 +1,8 @@
+
 #include <WiFi.h>
  
-const char* ssid = "*****";
-const char* password = "************";
+const char* ssid = "***";
+const char* password = "****";
 int LED = 33;
 int MED =14;
 WiFiServer server(80);
@@ -54,14 +55,17 @@ void loop() {
         } else if (c != '\r') {
           currentLine += c;
         }
+        int var=0;
         if (currentLine.endsWith("GET /H")) {
-          while ((currentLine.endsWith("GET /H"))){
+          while (var < 30){
             digitalWrite(LED, HIGH);
             delay(1000);
             digitalWrite(LED, LOW);
             digitalWrite(MED, HIGH);
             delay(1000);
             digitalWrite(MED, LOW);
+            var++;
+            Serial.println(var);
           }
 
 
