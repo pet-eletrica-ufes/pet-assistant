@@ -1,6 +1,4 @@
 import requests
-import requests
-# from googletrans import Translator
 import wikipedia
 import pywhatkit as kit
 from email.message import EmailMessage
@@ -31,10 +29,6 @@ def play_on_youtube(video):
 
 def search_on_google(query):
     kit.search(query)
-
-
-def send_whatsapp_message(number, message):
-    kit.sendwhatmsg_instantly(f"+55{number}", message)
 
 
 def send_email(receiver_address, subject, message): #alterar para leitura de arquivos (modelo de email, lista de pessoas, etc.)
