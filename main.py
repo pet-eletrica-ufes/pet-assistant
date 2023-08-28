@@ -112,7 +112,7 @@ def main():
     engine = pyttsx3.init('sapi5')
 
     # Set Rate
-    engine.setProperty('rate', 190)
+    engine.setProperty('rate', 240)
 
     # Set Volume
     engine.setProperty('volume', volume)
@@ -286,11 +286,10 @@ def main():
                         f"Descrição: {weather}\n Temperatura: {temperature}\n Sensação: {feels_like}")
                     break
                 
-                else:
+                '''else:
                     speak(engine,
-              'Desculpe, não consegui entender. Você poderia repetir?')
+              'Desculpe, não consegui entender. Você poderia repetir?')'''
 
-    f.close()
 
 if __name__ == '__main__':
     main()
