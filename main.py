@@ -3,7 +3,7 @@ from datetime import datetime
 import speech_recognition as sr
 from random import choice
 import requests
-from functions.online_ops import find_my_ip, get_latest_news, get_random_advice, get_random_joke, get_weather_report, play_on_youtube, search_on_google, search_on_wikipedia, send_email, send_whatsapp_message
+from functions.online_ops import find_my_ip, get_latest_news, get_random_advice, get_random_joke, get_weather_report, play_on_youtube, search_on_google, search_on_wikipedia, send_email
 from functions.os_ops import open_calculator, open_camera, open_cmd, open_notepad
 from decouple import config
 
