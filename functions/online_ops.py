@@ -60,12 +60,23 @@ def get_latest_news():
 
 
 def get_weather_report(city):
-    res = requests.get(
-        f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={OPENWEATHER_APP_ID}&units=metric").json()
-    weather = res["weather"][0]["main"]
-    temperature = res["main"]["temp"]
-    feels_like = res["main"]["feels_like"]
-    return weather, f"{temperature}℃", f"{feels_like}℃"
+    response = requests.get(
+        f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={OPENWEATHER_APP_ID}&units=metric")
+    
+    print(response)
+    
+    res = response.json()
+    print(res)
+
+  
+    if response.status_code == 200:
+        weather = res["weather"][0]["main"]
+        temperature = res["main"]["temp"]
+        feels_like = res["main"]["feels_like"]
+        return weather, f"{temperature}℃", f"{feels_like}℃"
+
+    else:
+        return None, f"{None}℃", f"{None}℃"
 
 
 def get_random_joke(): #fazer um ambiente de commits de piadas próprias para alimentar a Faraday 
