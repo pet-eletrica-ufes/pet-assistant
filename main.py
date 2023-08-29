@@ -10,13 +10,12 @@ from decouple import config
 USERNAME = config('USER')
 BOTNAME = config('BOTNAME')
 
-
-dibas = "data/tdb.mp3"
-
 opening_text = [
     "Ok, estou no processo.",
     "Beleza, já iniciei.",
     "Só um segundo.",
+    "Executando.",
+    "Claro! Estou fazendo isso."
 ]
 
 listening_text = [
@@ -112,7 +111,7 @@ def main():
     engine = pyttsx3.init('sapi5')
 
     # Set Rate
-    engine.setProperty('rate', 240)
+    engine.setProperty('rate', 210)
 
     # Set Volume
     engine.setProperty('volume', volume)
@@ -195,10 +194,6 @@ def main():
                         print("Falha ao apagar o LED.")
                     break
 
-                elif 'abrir calculadora' in query:
-                    open_calculator()
-                    break
-
                 elif 'endereço de ip' in query:
                     ip_address = find_my_ip()
                     speak(engine,
@@ -273,7 +268,7 @@ def main():
                     print(*get_latest_news(), sep='\n')
                     break
 
-                elif 'tempo' in query:
+                elif 'clima' in query:
                     ip_address = find_my_ip()
                     city = requests.get(f"https://ipapi.co/{ip_address}/city/").text
                     speak(engine, f"Procurando o relatório do tempo de {city}.")
