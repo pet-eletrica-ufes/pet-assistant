@@ -4,6 +4,9 @@ import pywhatkit as kit
 from email.message import EmailMessage
 import smtplib
 from decouple import config
+from bs4 import BeautifulSoup
+# from selenium import webdriver
+
 
 USERNAME = config("USER")
 BOTNAME = config("BOTNAME")
@@ -91,7 +94,28 @@ def get_random_advice(): #mesma ideia da função de piadas
     res = requests.get("https://api.adviceslip.com/advice").json()
     return res['slip']['advice']
 
+
+def cardapio_RU(url):
+
+    # URL do cardápio
+    url_cardapio = url
+    response = requests.get(url)
+
+    page = response.content
+
+    soup = BeautifulSoup(page, 'html.parser')
     
+    list_item = soup.find('div', class_= 'view-content')
+
+    cardapio = list_item.text.strip()
+    
+    print(cardapio)
+
+
+url_cardapio = 'https://ru.ufes.br/cardapio'
+cardapio_RU(url_cardapio)
+
+
 
 # Bom dia Faraday - revisão do clima, horário, emails não lidos e cumprimentos. Possível reconhecimento de pessoas por voz (Vik - Librosa)
 # https://subscription.packtpub.com/book/data/9781787125193/9/ch09lvl1sec61/identifying-speakers-with-voice-recognition

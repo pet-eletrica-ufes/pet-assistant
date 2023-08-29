@@ -153,13 +153,13 @@ def main():
                 #      break
                 #   f.write(f'{query}')
 
-                elif 'volume' in query:
-                    if 'aumentar' in query:
-                        volume += 0.5
-                        break
-                    elif 'diminuir' in query or 'abaixar' in query:
-                        volume -= 0.5
-                        break
+                # elif 'volume' in query:
+                #    if 'aumentar' in query:
+                #        volume += 0.5
+                #        break
+                #    elif 'diminuir' in query or 'abaixar' in query:
+                #        volume -= 0.5
+                #        break
                 
                 elif 'se apresente' in query or 'apresente-se' in query:
                     speak(engine,
@@ -168,6 +168,11 @@ def main():
                 
                 elif 'abrir camera' in query:
                     open_camera()
+                    break
+
+                elif 'cardapio ru' in query:
+                    print(query)
+                    search_on_google('https://ru.ufes.br/cardapio')
                     break
                 
                 # elif 'tamo junto' in query or 'ta de boas' in query or 'tade boas':
@@ -220,16 +225,6 @@ def main():
                     speak(engine, 'O que vocÊ quer pesquisar no Google?')
                     query = take_user_input(engine).lower()
                     search_on_google(query)
-                    break
-
-                elif "enviar mensagem no whatsapp" in query:
-                    speak(engine,
-                        'Por favor, escreva o número para qual devo enviar a mensagem.')
-                    number = input("Entre com o número: ")
-                    speak(engine, "Qual a mensagem que deseja enviar?")
-                    message = take_user_input(engine).lower()
-                    send_whatsapp_message(number, message)
-                    speak(engine, "Mensagem enviada.")
                     break
 
                 elif "enviar email" in query:
