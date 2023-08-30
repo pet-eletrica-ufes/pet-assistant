@@ -3,12 +3,13 @@ from datetime import datetime
 import speech_recognition as sr
 from random import choice
 import requests
-from functions.online_ops import find_my_ip, get_latest_news, get_random_advice, get_random_joke, get_weather_report, play_on_youtube, search_on_google, search_on_wikipedia, send_email
+from functions.online_ops import find_my_ip, get_latest_news, get_random_advice, get_random_joke, get_weather_report, play_on_youtube, search_on_google, search_on_wikipedia, send_email, cardapio_RU
 from functions.os_ops import open_calculator, open_camera, open_cmd, open_notepad
 from decouple import config
 
 USERNAME = config('USER')
 BOTNAME = config('BOTNAME')
+RURL = config('RURL')
 
 opening_text = [
     "Ok, estou no processo.",
@@ -106,7 +107,7 @@ def main():
     esp_ip = "192.168.1.103"
     
 
-    volume = 1.0
+    volume = 1.5
 
     engine = pyttsx3.init('sapi5')
 
@@ -170,14 +171,11 @@ def main():
                     open_camera()
                     break
 
-                elif 'cardapio ru' in query:
-                    print(query)
-                    search_on_google('https://ru.ufes.br/cardapio')
+                elif 'ru do dia' in query or 'ru' in query or 'cardápio ru' in query:
+                    cardapio = cardapio_RU(RURL, datetime.now().hour)
+                    speak(engine, 
+                          f'RU, {cardapio}')
                     break
-                
-                # elif 'tamo junto' in query or 'ta de boas' in query or 'tade boas':
-                #    playsound(dibas)
-                #    break
 
                 elif 'acender' in query:
                     url_on = f"http://{esp_ip}/H"
@@ -187,7 +185,6 @@ def main():
                     else:
                         print("Falha ao acender o LED.")
                     break
-                
 
                 elif 'apagar' in query:
                     url_on = f"http://{esp_ip}/L"

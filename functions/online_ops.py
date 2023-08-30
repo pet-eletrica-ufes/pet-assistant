@@ -95,7 +95,7 @@ def get_random_advice(): #mesma ideia da função de piadas
     return res['slip']['advice']
 
 
-def cardapio_RU(url):
+def cardapio_RU(url, hora):
 
     # URL do cardápio
     url_cardapio = url
@@ -109,11 +109,20 @@ def cardapio_RU(url):
 
     cardapio = list_item.text.strip()
     
-    print(cardapio)
+    # print(cardapio)
+    
+    if hora < 15:
+        return (cardapio[:(cardapio.find('Jantar'))])
+    else:
+        return (cardapio[(cardapio.find('Jantar')):])
+    
+    
+    
 
 
-url_cardapio = 'https://ru.ufes.br/cardapio'
-cardapio_RU(url_cardapio)
+
+'''url_cardapio = 'https://ru.ufes.br/cardapio'
+cardapio_RU(url_cardapio, 14)'''
 
 
 
