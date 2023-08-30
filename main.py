@@ -137,9 +137,6 @@ def main():
             while True:
                 
                 query = take_user_input(engine).lower()
-                '''f = open("stt.txt", "w")
-                f.write(f'{query}')'''
-
 
                 if 'abrir bloco de notas' in query:
                     open_notepad()
@@ -148,19 +145,6 @@ def main():
                 elif 'abrir prompt de comando' in query or 'abrir cmd' in query:
                     open_cmd()
                     break
-
-                # elif 'escreva' in query:
-                #    if'ponto' in query:
-                #      break
-                #   f.write(f'{query}')
-
-                # elif 'volume' in query:
-                #    if 'aumentar' in query:
-                #        volume += 0.5
-                #        break
-                #    elif 'diminuir' in query or 'abaixar' in query:
-                #        volume -= 0.5
-                #        break
                 
                 elif 'se apresente' in query or 'apresente-se' in query:
                     speak(engine,
