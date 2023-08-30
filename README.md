@@ -16,6 +16,8 @@ The projects implements this [blog post](https://www.freecodecamp.org/news/pytho
 * give free advices
 * interact in real time with hologram
 * interact in real time with automation system (LED, doors, lights, etc)
+* extract information from websites and api's
+* solve riddles
 
 # How to Run
 
