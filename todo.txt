@@ -1,0 +1,7 @@
+**OTIMIZAÇÃO**
+
+- Faraday orientada a objetos;
+- Remoção de blocos if;
+- Distribuição de funções em dict;
+- Encapsulamento de padrões de reptição em funções auxiliares;
+- Alterar a abordagem dos acessos às API's síncronas;
