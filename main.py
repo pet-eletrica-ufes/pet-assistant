@@ -1,7 +1,7 @@
 import pyttsx3
 from datetime import datetime
 import speech_recognition as sr
-from random import choice
+from random import choice, randint
 import requests
 from functions.online_ops import find_my_ip, get_latest_news, get_random_advice, get_random_joke, get_weather_report, play_on_youtube, search_on_google, search_on_wikipedia, send_email, cardapio_RU
 from functions.os_ops import open_calculator, open_camera, open_cmd, open_notepad
@@ -62,16 +62,14 @@ def take_user_input(engine):
         query = r.recognize_google(audio, language='pt-BR')
         if not 'sair' in query or 'pare' in query:
             speak(engine, choice(opening_text))
-        else:
-            hour = datetime.now().hour
-            if hour >= 21 and hour < 6:
-                speak(engine, "Boa noite, cuide-se!")
-            else:
-                speak(engine, 'Tenha um bom dia!')
-            exit()
+        # else:
+            # hour = datetime.now().hour
+            # if hour >= 21 and hour < 6:
+            #     speak(engine, "Boa noite, cuide-se!")
+            # else:
+            #     speak(engine, 'Tenha um bom dia!')
+            # exit()
     except Exception:
-        speak(engine,
-              'Desculpe, não consegui entender. Você poderia repetir?')
         query = 'None' 
     return query
 
@@ -89,11 +87,12 @@ def listen(engine):
         if not 'sair' in query or 'pare' in query:
             pass
         else:
-            hour = datetime.now().hour
-            if hour >= 18 and hour < 6:
-                speak(engine, "Boa noite, cuide-se!")
-            else:
-                speak(engine, 'Tenha um bom dia!')
+            # hour = datetime.now().hour
+            # if hour >= 18 and hour < 6:
+            #     speak(engine, "Boa noite, cuide-se!")
+            # else:
+            #     speak(engine, 'Tenha um bom dia!')
+            print("Saindo...")
             exit()
             
     except Exception:
@@ -103,10 +102,8 @@ def listen(engine):
 
 def main():
 
-
     esp_ip = "192.168.1.103"
     
-
     volume = 1.5
 
     engine = pyttsx3.init('sapi5')
@@ -136,7 +133,7 @@ def main():
 
             while True:
                 
-                query = take_user_input(engine).lower()
+                query = take_user_input(engine).lower()       
 
                 if 'abrir bloco de notas' in query:
                     open_notepad()
@@ -208,20 +205,24 @@ def main():
                     search_on_google(query)
                     break
 
-                elif "enviar email" in query:
-                    speak(
-                        engine, "Entre com o email para o qual deseja enviar.")
-                    receiver_address = input("Entre ocm o endereço de email: ")
-                    speak(engine, "Qual deve ser o assunto?")
-                    subject = take_user_input(engine).capitalize()
-                    speak(engine, "Qual é a mensagem?")
-                    message = take_user_input(engine).capitalize()
-                    if send_email(receiver_address, subject, message):
-                        speak(engine, "Email enviado.")
-                    else:
-                        speak(engine,
-                            "Algo deu errado enquanto enviava o email,por favor, cheque o log de erro.")
-                    break
+                #
+                # PO, NÃO PRECISA DESSE NEGÓCIO DE MANDAR EMAIL, NÉ? CONVENHAMOS
+                #
+
+                # elif "enviar email" in query:
+                #     speak(
+                #         engine, "Entre com o email para o qual deseja enviar.")
+                #     receiver_address = input("Entre ocm o endereço de email: ")
+                #     speak(engine, "Qual deve ser o assunto?")
+                #     subject = take_user_input(engine).capitalize()
+                #     speak(engine, "Qual é a mensagem?")
+                #     message = take_user_input(engine).capitalize()
+                #     if send_email(receiver_address, subject, message):
+                #         speak(engine, "Email enviado.")
+                #     else:
+                #         speak(engine,
+                #             "Algo deu errado enquanto enviava o email,por favor, cheque o log de erro.")
+                #     break
 
                 elif 'piadoca' in query:
                     speak(engine, f"Espero que goste dessa.")
@@ -256,11 +257,37 @@ def main():
                     print(
                         f"Descrição: {weather}\n Temperatura: {temperature}\n Sensação: {feels_like}")
                     break
-                
-                '''else:
-                    speak(engine,
-              'Desculpe, não consegui entender. Você poderia repetir?')'''
 
+                elif 'sorteio' in query:
+                    speak(engine, 'De quanto a quanto?')
+                    while True:
+                        query = take_user_input(engine).lower()
+                        lims = query.split()
+                        if len(lims) > 0:
+
+                            try:
+                                inf = int(lims[1])
+                                sup = int(lims[3])
+
+                                num = randint(inf, sup)
+                                speak(engine, f"Seu número é {num}")
+                                print(num)
+                                break
+                            except ValueError:
+                                speak("Desculpe, não consegui entender os números. Certifique-se de que você forneceu números válidos.")
+                        
+                        else:
+                            speak("Desculpe, não consegui entender os números. Certifique-se de que você forneceu números válidos.")
+                    break
+
+
+                
+                elif 'sair' in query:
+                    exit()
+
+                elif query != None:
+                    speak(engine,
+                        'Desculpe, não consegui entender. Você poderia repetir?')
 
 if __name__ == '__main__':
     main()
