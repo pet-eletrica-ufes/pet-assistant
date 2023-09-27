@@ -205,9 +205,14 @@ def main():
                     search_on_google(query)
                     break
 
-                #
-                # PO, NÃO PRECISA DESSE NEGÓCIO DE MANDAR EMAIL, NÉ? CONVENHAMOS
-                #
+                elif 'receba os alunos' in query or 'receba' in query:
+                    speak(engine,
+                        f'Olá! Sejam bem-vindos ao PET Elétrica. Eu sou a Farady, sua assistente virtual e estou aqui para tornar a sua visita uma experiência fantástica.'\
+                        'Estamos ansiosos para mostrar a vocês o emocionante mundo da ciência, experimentação e descoberta.' \
+                        'Vocês estão prestes a embarcar em uma jornada emocionante, cheia de curiosidades, aprendizado e diversão. Aqui, a imaginação é o nosso combustível,' \
+                        'e as possibilidades são infinitas. Aqui, vocês poderão explorar, fazer perguntas e aprender de uma maneira única e envolvente.')
+                    break
+
 
                 # elif "enviar email" in query:
                 #     speak(
