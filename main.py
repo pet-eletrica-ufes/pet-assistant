@@ -6,6 +6,7 @@ import requests
 from functions.online_ops import find_my_ip, get_latest_news, get_random_advice, get_random_joke, get_weather_report, play_on_youtube, search_on_google, search_on_wikipedia, send_email, cardapio_RU
 from functions.os_ops import open_calculator, open_camera, open_cmd, open_notepad
 from decouple import config
+import serial
 
 USERNAME = config('USER')
 BOTNAME = config('BOTNAME')
@@ -25,6 +26,7 @@ listening_text = [
     "Eu!",
     ]
 
+oracle = serial.Serial('COMX', 9600)
 
 
 def speak(engine, text):
@@ -62,6 +64,7 @@ def take_user_input(engine):
         query = r.recognize_google(audio, language='pt-BR')
         if not 'sair' in query or 'pare' in query:
             speak(engine, choice(opening_text))
+            set_oracle(oracle,2)
         # else:
             # hour = datetime.now().hour
             # if hour >= 21 and hour < 6:
@@ -72,6 +75,9 @@ def take_user_input(engine):
     except Exception:
         query = 'None' 
     return query
+
+def set_oracle(oracle,state):
+    oracle.write(str(state).encode() + b'\n')
 
 def listen(engine):
     """Takes user input, recognizes it using Speech Recognition module and converts it into text"""
@@ -117,7 +123,7 @@ def main():
     # Set Voice (Female)
     # The getProperty method returns a list of voices available in the system.
     voices = engine.getProperty('voices')
-    '''engine.setProperty('voice', voices[1].id)'''
+    # engine.setProperty('voice', voices[1].id)
     for voice in voices:
         if "brazil" in voice.name.lower():
             engine.setProperty('voice', voice.id)
@@ -127,12 +133,15 @@ def main():
 
     while True:
         query = listen(engine).lower()
+        
+        set_oracle(oracle,0)
 
         if 'faraday' in query or 'faradai' in query or 'faradei' in query:
             speak(engine, choice(listening_text))
 
             while True:
                 
+                set_oracle(oracle,1)
                 query = take_user_input(engine).lower()       
 
                 if 'abrir bloco de notas' in query:
@@ -282,6 +291,7 @@ def main():
                                 speak("Desculpe, não consegui entender os números. Certifique-se de que você forneceu números válidos.")
                         
                         else:
+                            set_oracle(oracle,3)
                             speak("Desculpe, não consegui entender os números. Certifique-se de que você forneceu números válidos.")
                     break
 
